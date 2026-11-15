@@ -1,0 +1,34 @@
+# ROTA — Smart Crop Rotation Advisor
+# DO NOT commit the large UBOS administrative datasets (lib/data/).
+# districts.csv, parishes.csv and villages.csv (70k+ records) live here and
+# must never be pushed to a remote. They are read at build/request time from
+# the local filesystem and served through the /api/locations routes.
+lib/data/
+
+# Next.js
+.next/
+out/
+build/
+
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Misc
+.DS_Store
+Thumbs.db
+*.log
+coverage/
+.turbo/
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts

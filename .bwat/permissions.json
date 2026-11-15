@@ -1,0 +1,14 @@
+{
+  "version": 3,
+  "bash": [
+    "npx tsc"
+  ],
+  "powershell": [
+    "node",
+    "npx tsc",
+    "npm run",
+    "git status",
+    "git ls-files",
+    "head"
+  ]
+}
