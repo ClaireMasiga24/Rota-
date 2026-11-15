@@ -1,9 +1,6 @@
 # ROTA — Smart Crop Rotation Advisor
-# DO NOT commit the large UBOS administrative datasets (lib/data/).
-# districts.csv, parishes.csv and villages.csv (70k+ records) live here and
-# must never be pushed to a remote. They are read at build/request time from
-# the local filesystem and served through the /api/locations routes.
-lib/data/
+# The UBOS administrative datasets and /api/locations routes were removed
+# for the MVP; the zone list is now static in lib/zones.ts.
 
 # Next.js
 .next/

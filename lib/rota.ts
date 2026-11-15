@@ -1,19 +1,7 @@
-import type { FarmLocation } from './locations';
+import { ZONES, type ZoneId } from './zones';
+export { ZONES };
+export type { ZoneId };
 
-export const ZONES = [
-  { id: 'central', name: 'Central Buganda', places: 'Kampala, Wakiso, Mpigi', context: 'Changing rainfall timing and pressure on cultivated soils', annualRain: null, flags: ['Variable rainfall', 'Soil depletion'] },
-  { id: 'eastern', name: 'Eastern Mbale', places: 'Mbale, Bududa, Tororo', context: 'Mixed rainfall conditions; steep terrain in some locations', annualRain: null, flags: ['Runoff risk', 'Season variability'] },
-  { id: 'northern', name: 'Northern Gulu', places: 'Gulu, Lira, Kitgum', context: 'Seasonal dry spells and heat stress', annualRain: null, flags: ['Dry spells', 'Heat stress'] },
-  { id: 'westnile', name: 'West Nile Arua', places: 'Arua, Moyo, Yumbe', context: 'Dry spells and variable soil conditions', annualRain: null, flags: ['Dry spells', 'Soil variability'] },
-  { id: 'western', name: 'Western Hoima', places: 'Hoima, Masindi, Buliisa', context: 'Mixed farming systems and land-use pressure', annualRain: null, flags: ['Land-use pressure'] },
-  { id: 'southwest', name: 'Southwest Mbarara', places: 'Mbarara, Kabale, Ntungamo', context: 'Highland and rangeland farming conditions vary by location', annualRain: null, flags: ['Slope-sensitive', 'Variable temperatures'] },
-  { id: 'karamoja', name: 'Karamoja Moroto', places: 'Moroto, Kotido, Napak', context: 'Water scarcity and high drought exposure', annualRain: 300, flags: ['Water stress', 'Drought risk'] },
-  { id: 'elgon', name: 'Elgon Kapchorwa', places: 'Kapchorwa, Sironko, Bulambuli', context: 'Steep slopes and intense rainfall can increase erosion and landslide risk', annualRain: null, flags: ['Erosion risk', 'Slope-sensitive'] },
-  { id: 'rwenzori', name: 'Rwenzori Kasese', places: 'Kasese, Bundibugyo, Ntoroko', context: 'Mountain and lowland conditions differ; manage runoff and local flood risk', annualRain: null, flags: ['Runoff risk', 'Flood exposure'] },
-  { id: 'lake', name: 'Lake Masaka', places: 'Masaka, Rakai, Kalungu', context: 'Relatively wet Lake Victoria-influenced farming environment', annualRain: 1200, flags: ['High rainfall context'] },
-] as const;
-
-export type ZoneId = typeof ZONES[number]['id'];
 export type Priority = 'water' | 'soil' | 'erosion' | 'income';
 
 // Prototype agronomic reference values supplied in the project brief/code.
@@ -33,7 +21,7 @@ export const CROPS = [
 ] as const;
 export type CropId = typeof CROPS[number]['id'];
 
-export function recommend(zoneId: ZoneId, lastCropId: CropId, priority: Priority, rainTrend: 'declining'|'stable'|'increasing'|'unknown', farmLocation?: FarmLocation) {
+export function recommend(zoneId: ZoneId, lastCropId: CropId, priority: Priority, rainTrend: 'declining'|'stable'|'increasing'|'unknown') {
   const zone = ZONES.find(z=>z.id===zoneId)!;
   const previous = CROPS.find(c=>c.id===lastCropId)!;
   const candidates = CROPS.filter(c => c.id !== lastCropId && c.zones.includes(zoneId));
@@ -64,5 +52,5 @@ export function recommend(zoneId: ZoneId, lastCropId: CropId, priority: Priority
     if ((crop.groups as readonly string[]).includes('legume') && !(previous.groups as readonly string[]).includes('legume')) { score += 8; }
     return { crop, score, waterSaving, soilDifference, reasons };
   }).sort((a,b)=>b.score-a.score).slice(0,3);
-  return { zone, previous, recommendations: scored, farmLocation };
+  return { zone, previous, recommendations: scored };
 }

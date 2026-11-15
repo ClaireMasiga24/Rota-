@@ -1,6 +1,6 @@
 # ROTA Uganda MVP
 
-A Next.js + TypeScript interactive prototype for the NASA Space Apps Field Shift challenge.
+A Next.js + TypeScript interactive prototype for crop rotation decision support for Ugandan smallholder farmers.
 
 ## Run locally
 
@@ -28,7 +28,7 @@ Open http://localhost:3000.
 
 ## Recommended next engineering steps
 1. Replace the provisional crop table with verified Uganda-specific crop/soil/season data.
-2. Add district, sub-county and village geospatial matching.
+2. Add finer geospatial matching within zones.
 3. Add crop-family and crop-specific pest/disease rotation constraints.
 4. Add local market prices and input costs before showing profitability estimates.
 5. Add source, date, spatial resolution and confidence labels to every data-derived insight.
